@@ -8,7 +8,7 @@ import android.support.annotation.NonNull;
  * @description ：
  * @email ：chezi008@163.com
  */
-interface ISocket {
+public interface ISocket {
     /**
      * 连接网络
      *
