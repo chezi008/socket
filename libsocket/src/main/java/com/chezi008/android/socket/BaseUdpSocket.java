@@ -118,7 +118,7 @@ public class BaseUdpSocket implements ISocket {
                 Log.d(TAG, "receive Process: " + android.os.Process.myTid() + "  length:" + size);
                 while (size > 0) {
                     if (mSocketListener != null) {
-                        mSocketListener.revc(buffer, 0, size);
+                        mSocketListener.recv(buffer, 0, size);
                     }
                     mDatagramSocket.receive(datagramPacket);
                     size = datagramPacket.getLength();

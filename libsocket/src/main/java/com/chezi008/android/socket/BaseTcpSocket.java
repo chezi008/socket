@@ -91,7 +91,7 @@ public class BaseTcpSocket implements ISocket {
             int packetSize;
             while ((packetSize = mInStream.read(buffer, 0, PACKED_BUFFER_SIZE)) != -1) {
                 if (mSocketListener != null) {
-                    mSocketListener.revc(buffer, 0, packetSize);
+                    mSocketListener.recv(buffer, 0, packetSize);
                 }
             }
 

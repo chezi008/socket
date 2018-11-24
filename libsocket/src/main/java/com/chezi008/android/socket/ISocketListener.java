@@ -12,7 +12,7 @@ public interface ISocketListener {
      * @param offset
      * @param size
      */
-    void revc(byte[] data, int offset, int size);
+    void recv(byte[] data, int offset, int size);
 
     /**
      * 连接成功
