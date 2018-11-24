@@ -80,9 +80,12 @@ public class BaseUdpSocket implements ISocket {
         if (mDatagramSocket != null) {
             mDatagramSocket.close();
         }
-        queueBuffer.clear();
-        ftSend.cancel(true);
-        ftRecv.cancel(true);
+        if (ftSend != null) {
+            ftSend.cancel(true);
+        }
+        if (ftRecv!=null){
+            ftRecv.cancel(true);
+        }
     }
 
     @Override
@@ -165,7 +168,7 @@ public class BaseUdpSocket implements ISocket {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
+            queueBuffer.clear();
         }
     };
 
