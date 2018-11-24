@@ -16,7 +16,7 @@ allprojects {
 第二步：
 ```
 dependencies {
-	        implementation 'com.github.chezi008:socket:1.0.0'
+	        implementation 'com.github.chezi008:socket:1.0.1'
 	}
 ```
 ## 相关功能
