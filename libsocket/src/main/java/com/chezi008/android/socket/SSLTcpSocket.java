@@ -30,7 +30,7 @@ public class SSLTcpSocket extends BaseTcpSocket {
         super(ip, port, listener);
     }
 
-    public void setSSLConfi(@IntegerRes int keyPath, String keyPwd) {
+    public void setSSLConfig(int keyPath, String keyPwd) {
         mKeyPath = keyPath;
         mKeyPwd = keyPwd;
     }
