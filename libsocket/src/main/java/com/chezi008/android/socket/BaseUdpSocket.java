@@ -26,7 +26,6 @@ public class BaseUdpSocket implements ISocket {
     private DatagramSocket mDatagramSocket;
     private final int MAX_UDP_DATAGRAM_LEN = 1024 * 2;
     private final int UDP_TIME_OUT = 15000;
-
     protected ISocketListener mSocketListener;
 
     private byte[] sendBuffer = new byte[MAX_UDP_DATAGRAM_LEN];

@@ -20,4 +20,6 @@ dependencies {
 	}
 ```
 ## 相关功能
-- 添加BaseUdp类，封装UDP基本通信功能，包含发送和接收，以及相关状态的回调。
+- 添加BaseUdpSocket类，封装UDP基本通信功能，包含发送和接收，以及相关状态的回调。
+- 添加BaseTcpSocket类，封装TCP基本通信功能，包含发送和接收，以及相关状态的回调。
+- 添加SSLTcpScoket类，封装SSLScoket加密通信基本功能，包含发送和接收，以及相关状态的回调。
