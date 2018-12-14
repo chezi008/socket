@@ -5,7 +5,7 @@ package com.chezi008.android.socket;
  * @description ：
  * @email ：chezi008@163.com
  */
-class SocketData {
+public class SocketData {
     public byte[] data;
     public int offset;
     public int size;
