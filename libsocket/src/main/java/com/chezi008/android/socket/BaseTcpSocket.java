@@ -54,7 +54,7 @@ public class BaseTcpSocket implements ISocket {
     }
 
     @Override
-    public void connect(@NonNull final Context ctx) {
+    public void connect(@Nullable final Context ctx) {
         esSocket.submit(new Runnable() {
             @Override
             public void run() {
