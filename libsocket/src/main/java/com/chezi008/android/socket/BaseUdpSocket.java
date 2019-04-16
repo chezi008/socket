@@ -53,7 +53,7 @@ public class BaseUdpSocket implements ISocket {
     }
 
     @Override
-    public void connect(@NonNull Context ctx){
+    public void connect(@Nullable Context ctx){
         if (ftRecv == null || ftRecv.isDone()) {
             ftRecv = esClient.submit(recvRunnable);
         }

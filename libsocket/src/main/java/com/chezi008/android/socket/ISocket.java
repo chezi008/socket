@@ -2,6 +2,7 @@ package com.chezi008.android.socket;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 /**
  * @author ：chezi008 on 2018/7/18 15:37
@@ -15,7 +16,7 @@ public interface ISocket {
      * @param ctx ctx只有ssl连接的时候才需要，
      *            其他的情况可为null
      */
-    void connect(@NonNull Context ctx);
+    void connect(@Nullable Context ctx);
 
     void send(byte[] data);
 
