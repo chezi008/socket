@@ -24,7 +24,7 @@ public class BaseUdpSocket implements ISocket {
     private String TAG = getClass().getSimpleName();
 
     private DatagramSocket mDatagramSocket;
-    private final int MAX_UDP_DATAGRAM_LEN = 1024 * 2;
+    private final int MAX_UDP_DATAGRAM_LEN = 1024 * 4;
     private final int UDP_TIME_OUT = 15000;
     protected ISocketListener mSocketListener;
 
@@ -37,6 +37,8 @@ public class BaseUdpSocket implements ISocket {
 
     protected String mHost;
     protected int mPort;
+
+    private int packetSize = MAX_UDP_DATAGRAM_LEN;
 
     /**
      * @param ip
@@ -97,14 +99,17 @@ public class BaseUdpSocket implements ISocket {
         this.mSocketListener = listener;
     }
 
+    public void setPacketSize(int packetSize) {
+        this.packetSize = packetSize;
+    }
 
     private Runnable recvRunnable = new Runnable() {
         @Override
         public void run() {
             try {
                 mDatagramSocket = new DatagramSocket(mPort);
-                byte[] buffer = new byte[MAX_UDP_DATAGRAM_LEN];
-                DatagramPacket datagramPacket = new DatagramPacket(buffer, MAX_UDP_DATAGRAM_LEN);
+                byte[] buffer = new byte[packetSize];
+                DatagramPacket datagramPacket = new DatagramPacket(buffer, packetSize);
 //                mDatagramSocket.setSoTimeout(UDP_TIME_OUT);
 
                 //连接成功
