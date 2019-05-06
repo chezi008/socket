@@ -1,8 +1,6 @@
 package com.chezi008.android.socket;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -43,18 +41,18 @@ public class BaseTcpSocket implements ISocket {
      * @param ip
      * @param port
      */
-    public BaseTcpSocket(@NonNull String ip, @NonNull int port) {
+    public BaseTcpSocket( String ip,  int port) {
         this(ip, port, null);
     }
 
-    public BaseTcpSocket(@NonNull String ip, @NonNull int port, @Nullable ISocketListener listener) {
+    public BaseTcpSocket( String ip,  int port,  ISocketListener listener) {
         this.mSocketListener = listener;
         this.mHost = ip;
         this.mPort = port;
     }
 
     @Override
-    public void connect(@Nullable final Context ctx) {
+    public void connect( final Context ctx) {
         esSocket.submit(new Runnable() {
             @Override
             public void run() {
@@ -186,9 +184,8 @@ public class BaseTcpSocket implements ISocket {
      *
      * @param ctx
      * @return is init success
-     * @throws Exception
      */
-    protected void initSocket(@Nullable Context ctx)throws Exception{
+    protected void initSocket(Context ctx)throws Exception{
         mSocket = new Socket(mHost, mPort);
         mSocket.setReceiveBufferSize(RECEIVE_BUFFER_SIEZE);
     }

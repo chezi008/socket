@@ -1,8 +1,6 @@
 package com.chezi008.android.socket;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.util.Log;
 
 import java.io.IOException;
@@ -44,18 +42,18 @@ public class BaseUdpSocket implements ISocket {
      * @param ip
      * @param port
      */
-    public BaseUdpSocket(@NonNull String ip, @NonNull int port) {
+    public BaseUdpSocket( String ip, int port) {
         this(ip, port, null);
     }
 
-    public BaseUdpSocket(@NonNull String ip, @NonNull int port, @Nullable ISocketListener listener) {
+    public BaseUdpSocket( String ip,  int port,  ISocketListener listener) {
         this.mSocketListener = listener;
         this.mHost = ip;
         this.mPort = port;
     }
 
     @Override
-    public void connect(@Nullable Context ctx){
+    public void connect( Context ctx){
         if (ftRecv == null || ftRecv.isDone()) {
             ftRecv = esClient.submit(recvRunnable);
         }
