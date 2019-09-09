@@ -1,13 +1,11 @@
 package com.chezi008.android.socket;
 
 import android.content.Context;
-import android.support.annotation.IntegerRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.TrustManagerFactory;
+
 import java.security.KeyStore;
 
 /**
@@ -22,11 +20,11 @@ public class SSLTcpSocket extends BaseTcpSocket {
     private static final String CLIENT_TRUST_MANAGER = "X509";
     private static final String CLIENT_TRUST_KEYSTORE = "BKS";
 
-    public SSLTcpSocket(@NonNull String ip, @NonNull int port) {
+    public SSLTcpSocket(String ip, int port) {
         super(ip, port);
     }
 
-    public SSLTcpSocket(@NonNull String ip, @NonNull int port, @Nullable ISocketListener listener) {
+    public SSLTcpSocket(String ip, int port, ISocketListener listener) {
         super(ip, port, listener);
     }
 
