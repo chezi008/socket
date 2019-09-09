@@ -35,7 +35,7 @@ public class BaseTcpSocket implements ISocket {
      */
     private ExecutorService esSocket = Executors.newFixedThreadPool(3);
     private LinkedBlockingQueue<SocketData> queueBuffer = new LinkedBlockingQueue<>();
-    private Future futSend;
+    private Future futSend,ftReceive;
 
     /**
      * @param ip
@@ -53,7 +53,7 @@ public class BaseTcpSocket implements ISocket {
 
     @Override
     public void connect( final Context ctx) {
-        esSocket.submit(new Runnable() {
+        ftReceive = esSocket.submit(new Runnable() {
             @Override
             public void run() {
                 try {
@@ -100,6 +100,9 @@ public class BaseTcpSocket implements ISocket {
                 mSocketListener.onFaild(e);
             }
         }
+        if (mSocketListener != null) {
+            mSocketListener.onClose();
+        }
     }
 
     /**
@@ -121,14 +124,8 @@ public class BaseTcpSocket implements ISocket {
 
                     } catch (IOException e) {
                         e.printStackTrace();
-                        if (mSocketListener != null) {
-                            mSocketListener.onFaild(e);
-                        }
                     }
                     queueBuffer.clear();
-                    if (mSocketListener != null) {
-                        mSocketListener.onClose();
-                    }
                 }
             });
         }
@@ -166,12 +163,17 @@ public class BaseTcpSocket implements ISocket {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
+        if (futSend != null) {
+            futSend.cancel(true);
+        }
+        if (ftReceive != null) {
+            ftReceive.cancel(true);
+        }
     }
 
     @Override
     public boolean isClosed() {
-        return mSocket != null ? mSocket.isClosed() : false;
+        return mSocket != null && mSocket.isClosed();
     }
 
     @Override
