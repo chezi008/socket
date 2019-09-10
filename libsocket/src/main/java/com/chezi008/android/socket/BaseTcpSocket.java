@@ -35,24 +35,24 @@ public class BaseTcpSocket implements ISocket {
      */
     private ExecutorService esSocket = Executors.newFixedThreadPool(3);
     private LinkedBlockingQueue<SocketData> queueBuffer = new LinkedBlockingQueue<>();
-    private Future futSend,ftReceive;
+    private Future futSend, ftReceive;
 
     /**
      * @param ip
      * @param port
      */
-    public BaseTcpSocket( String ip,  int port) {
+    public BaseTcpSocket(String ip, int port) {
         this(ip, port, null);
     }
 
-    public BaseTcpSocket( String ip,  int port,  ISocketListener listener) {
+    public BaseTcpSocket(String ip, int port, ISocketListener listener) {
         this.mSocketListener = listener;
         this.mHost = ip;
         this.mPort = port;
     }
 
     @Override
-    public void connect( final Context ctx) {
+    public void connect(final Context ctx) {
         ftReceive = esSocket.submit(new Runnable() {
             @Override
             public void run() {
@@ -64,6 +64,7 @@ public class BaseTcpSocket implements ISocket {
                     if (mSocketListener != null) {
                         mSocketListener.onFaild(e);
                     }
+                    mSocketListener = null;
                 }
             }
         });
@@ -79,7 +80,7 @@ public class BaseTcpSocket implements ISocket {
             mOutStream = mSocket.getOutputStream();
             mInStream = mSocket.getInputStream();
             //连接成功
-            if (mSocketListener != null ) {
+            if (mSocketListener != null) {
                 mSocketListener.onSuccess();
             }
             startSend();
@@ -103,6 +104,7 @@ public class BaseTcpSocket implements ISocket {
         if (mSocketListener != null) {
             mSocketListener.onClose();
         }
+        mSocketListener = null;
     }
 
     /**
@@ -149,20 +151,27 @@ public class BaseTcpSocket implements ISocket {
 
     @Override
     public void close() {
-        //先把流给关闭
-        try {
-            if (mInStream!=null){
-                mInStream.close();
+        esSocket.submit(new Runnable() {
+            @Override
+            public void run() {
+                //先把流给关闭
+                try {
+                    if (mInStream != null) {
+                        mInStream.close();
+                    }
+                    if (mOutStream != null) {
+                        mOutStream.close();
+                    }
+                    if (mSocket != null) {
+                        mSocket.close();
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-            if (mOutStream != null) {
-                mOutStream.close();
-            }
-            if (mSocket != null) {
-                mSocket.close();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        });
+
         if (futSend != null) {
             futSend.cancel(true);
         }
@@ -178,7 +187,7 @@ public class BaseTcpSocket implements ISocket {
 
     @Override
     public void setSocketListener(ISocketListener listener) {
-        this.mSocketListener  = listener;
+        this.mSocketListener = listener;
     }
 
     /**
@@ -187,7 +196,7 @@ public class BaseTcpSocket implements ISocket {
      * @param ctx
      * @return is init success
      */
-    protected void initSocket(Context ctx)throws Exception{
+    protected void initSocket(Context ctx) throws Exception {
         mSocket = new Socket(mHost, mPort);
         mSocket.setReceiveBufferSize(RECEIVE_BUFFER_SIEZE);
     }

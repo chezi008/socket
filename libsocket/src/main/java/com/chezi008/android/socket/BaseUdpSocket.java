@@ -76,9 +76,14 @@ public class BaseUdpSocket implements ISocket {
 
     @Override
     public void close() {
-        if (mDatagramSocket != null) {
-            mDatagramSocket.close();
-        }
+        esClient.submit(new Runnable() {
+            @Override
+            public void run() {
+                if (mDatagramSocket != null) {
+                    mDatagramSocket.close();
+                }
+            }
+        });
         if (ftSend != null) {
             ftSend.cancel(true);
         }
