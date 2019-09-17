@@ -173,8 +173,14 @@ public class BaseUdpSocket implements ISocket {
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
+                if (mSocketListener != null) {
+                    mSocketListener.onFaild(e);
+                }
             } catch (IOException e) {
                 e.printStackTrace();
+                if (mSocketListener != null) {
+                    mSocketListener.onFaild(e);
+                }
             }
             queueBuffer.clear();
         }
