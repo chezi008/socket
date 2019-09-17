@@ -110,7 +110,7 @@ public class BaseUdpSocket implements ISocket {
         @Override
         public void run() {
             try {
-                mDatagramSocket = new DatagramSocket(mPort);
+                mDatagramSocket = new DatagramSocket();
                 byte[] buffer = new byte[packetSize];
                 DatagramPacket datagramPacket = new DatagramPacket(buffer, packetSize);
 //                mDatagramSocket.setSoTimeout(UDP_TIME_OUT);
@@ -147,6 +147,7 @@ public class BaseUdpSocket implements ISocket {
             if (mSocketListener != null) {
                 mSocketListener.onClose();
             }
+            mDatagramSocket.close();
             Log.d(TAG, this.toString() + "start: -->client接收线程结束");
         }
     };
