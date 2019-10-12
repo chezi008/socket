@@ -110,7 +110,7 @@ public class BaseUdpSocket implements ISocket {
         @Override
         public void run() {
             try {
-                mDatagramSocket = new DatagramSocket();
+                mDatagramSocket = new DatagramSocket(mPort);
                 byte[] buffer = new byte[packetSize];
                 DatagramPacket datagramPacket = new DatagramPacket(buffer, packetSize);
 //                mDatagramSocket.setSoTimeout(UDP_TIME_OUT);
