@@ -1,21 +1,18 @@
 package com.chezi008.android.socket;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 
-import java.security.KeyStore;
-import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocket;
 import javax.net.ssl.TrustManager;
-import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
 /**
  * @author ：chezi008 on 2018/7/18 15:48
- * @description ：单向加密的tcp链接
- * 1、TCP应建立一个心跳机制，不然长时间没有数据的传输会被关闭。
+ * @description ：普通socket，ip 端口连接
  * @email ：chezi008@163.com
  */
 public class NormalSocket extends BaseTcpSocket {
@@ -32,13 +29,15 @@ public class NormalSocket extends BaseTcpSocket {
     protected void initSocket(Context ctx) throws Exception {
         SSLContext sslContext = SSLContext.getInstance(CLIENT_AGREEMENT);
         TrustManager manager = new X509TrustManager() {
+            @SuppressLint("TrustAllX509TrustManager")
             @Override
-            public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+            public void checkClientTrusted(X509Certificate[] chain, String authType) {
 
             }
 
+            @SuppressLint("TrustAllX509TrustManager")
             @Override
-            public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
+            public void checkServerTrusted(X509Certificate[] chain, String authType) {
 
             }
 

@@ -1,11 +1,10 @@
 package com.chezi008.socketdemo
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import com.chezi008.android.socket.ISocketListener
 import com.chezi008.android.socket.NormalSocket
-import com.chezi008.android.socket.SSLTcpSocket
 import kotlinx.android.synthetic.main.activity_main.*
 
 open class MainActivity : AppCompatActivity(), ISocketListener {
